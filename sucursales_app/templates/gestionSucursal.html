@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+{% load static %}
+<div class="row"><!--La fila-->
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"><!--Columna izquierda-->
+        <h1>Registrar Sucursales</h1>
+        <div class="card"> <!-- La tarjeta -->
+<div class="card-body">
+    <form action="registrarSucursal/" method="POST"> {% csrf_token %}<!-- Falta action -->
+    <div class="form-group">
+        <input type="text" id="txtcodigo" name="txtcodigo" class="form-control" placeholder="Id de la sucursal" minlength="1" maxlenght="6" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txtnombre" name="txtnombre" class="form-control" placeholder="Nombre de la sucursal" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txtdireccion" name="txtdireccion" class="form-control" placeholder="Direcion de la sucursal" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txttelefono" name="txttelefono" class="form-control" placeholder="Tel. de la sucursal" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txtcorreo" name="txtcorreo" class="form-control" placeholder="Correo" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txthorario" name="txthorario" class="form-control" placeholder="Horario de atencion" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txtencargado" name="txtencargado" class="form-control" placeholder="Encargado de la sucursal" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-2">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+    </form>
+</div>
+</div>
+    </div>
+    <!--Columna izquierda-->
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"><!--Columna derecha-->
+        <h1>Listado de Sucursales(∩^o^)⊃━☆</h1>
+        <img class="w-50" src="{% static 'img/Sucursal.jpg' %}" alt="libreria" width="300" height="300">
+        <!--Tablas-->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Direcion</th>
+            <th scope="col">Telefono</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Horario</th>
+            <th scope="col">Encargado</th>
+            <th> Opciones </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for m in missucursales %}
+        <tr>
+            <td> {{forloop.counter}}</td>
+            <td> {{m.codigo}}</td>
+            <td> {{m.nombre}}</td>
+            <td> {{m.direccion}}</td>
+            <td> {{m.telefono}}</td>
+            <td> {{m.correo}}</td>
+            <td> {{m.horario}}</td>
+            <td> {{m.encargado}}</td>
+            <td> <a href="seleccionarSucursal/{{m.codigo}}" class="btn btn-info"> Editar</a></td><!-- Falta -->
+            <td> <a href="borrarSucursal/{{m.codigo}}" class="btn btn-danger"> Borrar</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--Tabla-->
+    </div><!--Columna derecha-->
+    
+</div><!--La fila-->
+
+{% endblock %}

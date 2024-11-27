@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block cuerpo %}
+{% load static %}
+<div class="row"><!--La fila-->
+    <div class="col-sm-12 col-md-4 col-lg-4 col-xl-4"><!--Columna izquierda-->
+        <h1>Registrar Libros</h1>
+        <div class="card"> <!-- La tarjeta -->
+<div class="card-body">
+    <form action="registrarLibros/" method="POST"> {% csrf_token %}<!-- Falta action -->
+    <div class="form-group">
+        <input type="text" id="txtcodigo" name="txtcodigo" class="form-control" placeholder="Id del Libro" minlength="1" maxlenght="6" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txttitulo" name="txttitulo" class="form-control" placeholder="Titulo" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txtautor" name="txtautor" class="form-control" placeholder="Autor del Libro" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txtgenero" name="txtgenero" class="form-control" placeholder="Genero del Libro" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="text" id="txtpresio" name="txtpresio" class="form-control" placeholder="Precio del Libro"  maxlenght="1000" required><br>
+    </div>
+    <div class="form-group">
+        <input type="text" id="num" name="numcantidad" class="form-control" min="1" max="50" value="1" required><br>
+    </div>
+    <div class="form-group py-3">
+        <input type="date" id="txtfecha" name="datefecha" class="form-control" placeholder="Fecha de publicacion" maxlenght="100" required><br>
+    </div>
+    <div class="form-group py-2">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+    </form>
+</div>
+</div>
+    </div><!--Columna izquierda-->
+    <div class="col-sm-12 col-md-8 col-lg-8 col-xl-8"><!--Columna derecha-->
+        <h1>Listado de Libros(∩^o^)⊃━☆</h1>
+        <img class="w-50" src="{% static 'img/Libros.jpg' %}" alt="libreria" width="300" height="300">
+        <!--Tablas-->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">id</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Genero</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Fecha de publicacion</th>
+            <th> Opciones </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for m in mislibros %}
+        <tr>
+            <td> {{forloop.counter}}</td>
+            <td> {{m.codigo}}</td>
+            <td> {{m.titulo}}</td>
+            <td> {{m.autor}}</td>
+            <td> {{m.genero}}</td>
+            <td> {{m.presio}}</td>
+            <td> {{m.cantidad}}</td>
+            <td> {{m.fecha | date:'d-m-y'}}</td>
+            <td> <a href="seleccionarLibros/{{m.codigo}}" class="btn btn-info"> Editar</a></td><!-- Falta -->
+            <td> <a href="borrarLibros/{{m.codigo}}" class="btn btn-danger"> Borrar</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--Tabla-->
+    </div><!--Columna derecha-->
+    
+</div><!--La fila-->
+
+{% endblock %}
